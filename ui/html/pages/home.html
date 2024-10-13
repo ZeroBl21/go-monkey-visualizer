@@ -1,20 +1,20 @@
 {{define "title"}}Home{{end}}
 
 {{define "main"}}
-<form class="wrapper">
-  <section class="input">
+<div class="wrapper">
+  <form id="inputForm" class="input">
     <div class="controls">
-      <button type="submit">Lexer</button>
       <select id="processType">
         <option value="type1">Process Type 1</option>
         <option value="type2">Process Type 2</option>
         <option value="type3">Process Type 3</option>
       </select>
+      <button type="submit">Lexer</button>
     </div>
-    <textarea id="inputText" placeholder="Enter your input here..."></textarea>
-  </section>
+    <textarea id="inputText" name="input" placeholder="Enter your input here..."></textarea>
+  </form>
   <section class="output">
-    <textarea id="outputText" placeholder="Output will appear here..." readonly></textarea>
+    <textarea id="outputText" name="output" placeholder="Output will appear here..." readonly></textarea>
   </section>
-</form>
+</div>
 {{end}}
