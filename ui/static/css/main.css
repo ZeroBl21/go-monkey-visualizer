@@ -39,6 +39,27 @@ main {
 
 .controls {
     padding-block: .5rem;
+    background: #333333;
+    padding-inline: .5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.controls > button {
+    padding: .5rem 1rem;
+    border-radius: 0.25rem;
+    background: green;
+    border-color: transparent;
+    color: white;
+    font-weight: bold;
+}
+
+.controls > select {
+    padding: .5rem 1rem;
+    border-radius: 0.25rem;
+    border-color: transparent;
+    background: #444444;
+    color: white;
 }
 
 textarea {
@@ -56,4 +77,11 @@ textarea {
 }
 
 .output {
+}
+
+footer {
+    background: #333333;
+    color: white;
+    text-align: center;
+    padding-block: 0.5rem
 }

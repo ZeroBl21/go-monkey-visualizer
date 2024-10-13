@@ -3,10 +3,21 @@ document
 	.addEventListener("submit", async function (event) {
 		event.preventDefault();
 
-		// Obtener el texto del input
-		const inputText = document.getElementById("inputText").value;
+		const inputText = document.getElementById("inputText").value.trim();
+		const processType = document.getElementById("processType").value;
 
-		const response = await fetch("http://localhost:5173/api/lexer", {
+		if (inputText === "") {
+			document.getElementById("outputText").value =
+				"Error: El campo de entrada no puede estar vacío.";
+			return;
+		}
+
+		const url =
+			processType === "flex"
+				? "http://localhost:5173/api/flex"
+				: "http://localhost:5173/api/lexer";
+
+		const response = await fetch(url, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
