@@ -15,6 +15,7 @@ func (app *application) routes() http.Handler {
 
 	// HTML Routes
 	mux.HandleFunc("/", app.home)
+	mux.HandleFunc("/tutorial", app.tutorial)
 
 	// Api Routes
 	mux.HandleFunc("POST /api/lexer", app.lexerMonkey)
@@ -29,6 +30,12 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
 	app.render(w, http.StatusOK, "home.html", data)
+}
+
+func (app *application) tutorial(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "tutorial.html", data)
 }
 
 func (app *application) lexerMonkey(w http.ResponseWriter, r *http.Request) {

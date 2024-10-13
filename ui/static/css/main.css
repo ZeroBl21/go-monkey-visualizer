@@ -20,11 +20,13 @@ main {
     margin-bottom: 1rem;
     overflow: auto;
     display: flex;
+    flex-direction: column;
     height: 100%;
 }
 
 .wrapper {
     display: flex;
+    height: 100%;
     width: 100%;
     overflow: hidden;
     padding-inline: 0.5rem;
@@ -42,7 +44,8 @@ main {
     background: #333333;
     padding-inline: .5rem;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
 
 .controls > button {
@@ -52,6 +55,12 @@ main {
     border-color: transparent;
     color: white;
     font-weight: bold;
+    margin-left: auto;
+    transition: background 0.3s;
+}
+
+.controls > button:hover {
+    background: #45a049;
 }
 
 .controls > select {
@@ -60,6 +69,40 @@ main {
     border-color: transparent;
     background: #444444;
     color: white;
+}
+
+.controls > a {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background: #444444; 
+    color: white; 
+    text-decoration: none; 
+    transition: background 0.3s;
+    display: flex; 
+    align-items: center; 
+    animation: shake 3s ease-in-out infinite;
+}
+
+.controls > a:hover {
+    background: #58a6ff; /* Light blue on hover */
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(3deg);
+    }
+    50% {
+        transform: rotate(-3deg);
+    }
+    75% {
+        transform: rotate(3deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 textarea {
@@ -84,4 +127,55 @@ footer {
     color: white;
     text-align: center;
     padding-block: 0.5rem
+}
+
+/* Tutorial */
+.tutorial {
+    font-size: 18px;
+    color: white;
+    padding-inline: 1rem;
+}
+
+.home-link {
+    display: inline-block; 
+    margin-bottom: 1rem; 
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background: #444444;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.home-link:hover {
+    background: #58a6ff; /* Change background on hover */
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #58a6ff;
+}
+
+h2, h3 {
+    margin-top: 1rem;
+    color: #78b1d8;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+pre {
+    background: #1e1e1e;
+    border-radius: 0.25rem;
+    overflow: auto; 
+    color: #ffffff; 
+
+    margin: 1rem;
+    border-radius: 0.5rem
+}
+
+code {
+    /* color: #f1c40f; */
 }

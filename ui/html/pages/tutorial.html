@@ -1,0 +1,105 @@
+{{define "title"}}Monkey Language Tutorial{{end}}
+
+{{define "main"}}
+<div class="tutorial">
+  <a href="/" class="home-link">Back to Home</a>
+  <h1>Mini Tour of Monkey Language</h1>
+
+  <h2>1. Variables and Constants</h2>
+  <pre><code>
+      let x = 10; // x is now 10
+      let y = "Hello"; // y is now "Hello"
+    </code></pre>
+
+  <h2>2. Data Types</h2>
+  <pre><code>
+      let num = 42; // Integer
+      let isValid = true; // Boolean
+      let message = "Hello!"; // String
+    </code></pre>
+
+  <h2>3. Functions</h2>
+  <pre><code>
+      fn add(a, b) {
+          return a + b;
+      }
+
+      let result = add(5, 3); // result is now 8
+    </code></pre>
+
+  <h2>4. Control Flow</h2>
+  <h3>If Statement</h3>
+  <pre><code>
+      let age = 20;
+
+      if (age >= 18) {
+          print("Adult");
+      } else {
+          print("Minor");
+      }
+    </code></pre>
+
+  <h3>Returning Values from If Statements</h3>
+  <pre><code>
+      let result = 
+          if (num % 2 == 0) {
+              return "Even";
+          } else {
+              return "Odd";
+          }
+
+      result; // result is now "Odd"
+    </code></pre>
+
+  <h3>For Loop</h3>
+  <pre><code>
+      for (i = 0; i < 5; i=i + 1) { print(i); } </code>
+  </pre>
+
+  <h2>5. Arrays</h2>
+  <pre><code>
+      let numbers = [1, 2, 3, 4, 5];
+      print(numbers[0]); // prints 1
+    </code></pre>
+
+  <h2>6. Hash Maps</h2>
+  <pre><code>
+    let name = "Monkey";
+    let age = 1;
+    let inspirations = ["Scheme", "Lisp", "JavaScript", "Clojure"];
+    let book = {
+      "title": "Writing A Compiler In Go",
+      "author": "Thorsten Ball",
+      "prequel": "Writing An Interpreter In Go"
+    };
+
+    let printBookName = fn(book) {
+        let title = book["title"];
+        let author = book["author"];
+        puts(author + " - " + title);
+    };
+
+    printBookName(book);
+    </code></pre>
+
+  <h2>7. Comments</h2>
+  <pre><code>
+      // This is a single-line comment
+
+      /*
+      This is a
+      multi-line comment
+      */
+    </code></pre>
+
+  <h2>8. Error Handling</h2>
+  <pre><code>
+      fn divide(a, b) {
+          if (b == 0) {
+              return "Error: Division by zero!";
+          }
+              return a / b;
+      }
+    </code></pre>
+</div>
+{{end}}
