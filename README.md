@@ -1,5 +1,7 @@
 # Mini Tour of Monkey Language
 
+https://github.com/user-attachments/assets/8ba6be29-bec0-4d22-a503-baf3f8cf3430
+
 ## 1\. Variables and Constants
 
 ```js
@@ -51,12 +53,6 @@ let result =
 
 result; // result is now "Odd"
     
-```
-
-### For Loop
-
-```js
-for (i = 0; i < 5; i=i + 1) { print(i); } 
 ```
 
 ## 5\. Arrays
