@@ -15,14 +15,12 @@ document
 		let url;
 		if (processType === "flex") {
 			url = "http://localhost:5173/api/flex";
-		} else if (processType === "lexer") {
+		} else if (processType === "monkey") {
 			url = "http://localhost:5173/api/lexer";
 		} else if (processType === "pratt") {
 			url = "http://localhost:5173/api/pratt";
 		} else {
-			document.getElementById("outputText").value =
-				"Error: Invalid Process Type";
-			return;
+			url = "http://localhost:5173/api/lexer";
 		}
 
 		const response = await fetch(url, {
