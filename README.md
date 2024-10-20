@@ -2,6 +2,8 @@
 
 This project is a **visualizer** for the Monkey language that includes a **REPL**, **lexer**, and **parser**.
 
+https://github.com/user-attachments/assets/03383dc5-1a38-4050-ad5b-02819bb053d7
+
 ## Requirements
 
 ### Dependencies
