@@ -7,99 +7,170 @@
 
   <h2>1. Variables and Constants</h2>
   <pre><code>
-      let x = 10; // x is now 10
-      let y = "Hello"; // y is now "Hello"
-    </code></pre>
+// x is now 10
+let x = 10;
+// y is now "Hello"
+let y = "Hello";
+  </code></pre>
 
   <h2>2. Data Types</h2>
   <pre><code>
-      let num = 42; // Integer
-      let isValid = true; // Boolean
-      let message = "Hello!"; // String
-    </code></pre>
+// Integer
+let num = 42;
+// Boolean
+let isValid = true; 
+// String
+let message = "Hello!";
+  </code></pre>
 
   <h2>3. Functions</h2>
   <pre><code>
-      fn add(a, b) {
-          return a + b;
-      }
+fn add(a, b) {
+  return a + b;
+}
 
-      let result = add(5, 3); // result is now 8
-    </code></pre>
+// result is now 8
+let result = add(5, 3);
+  </code></pre>
 
   <h2>4. Control Flow</h2>
   <h3>If Statement</h3>
   <pre><code>
-      let age = 20;
+let age = 20;
 
-      if (age >= 18) {
-          print("Adult");
-      } else {
-          print("Minor");
-      }
-    </code></pre>
+if (age >= 18) {
+  puts("Adult");
+} else {
+  puts("Minor");
+}
+  </code></pre>
 
-  <h3>Returning Values from If Statements</h3>
+  <h3>Returning Values from If Expressions</h3>
   <pre><code>
-      let result = 
-          if (num % 2 == 0) {
-              return "Even";
-          } else {
-              return "Odd";
-          }
+let checkValue = fn(x) {
+  if (x > 100) {
+    true;  // The result of the if expression is `true` if x > 100
+  } else {
+    false; // The result of the if expression is `false` if x <= 100
+  }
+};
 
-      result; // result is now "Odd"
-    </code></pre>
-
-  <h3>For Loop</h3>
-  <pre><code>
-      for (i = 0; i < 5; i=i + 1) { print(i); } </code>
-  </pre>
+// Returns true
+let result = checkValue(150);
+// Returns false
+let anotherResult = checkValue(50);
+  </code></pre>
 
   <h2>5. Arrays</h2>
   <pre><code>
-      let numbers = [1, 2, 3, 4, 5];
-      print(numbers[0]); // prints 1
-    </code></pre>
+let numbers = [1, 2, 3, 4, 5];
+// prints 1
+print(numbers[0]);
+  </code></pre>
 
   <h2>6. Hash Maps</h2>
   <pre><code>
-    let name = "Monkey";
-    let age = 1;
-    let inspirations = ["Scheme", "Lisp", "JavaScript", "Clojure"];
-    let book = {
-      "title": "Writing A Compiler In Go",
-      "author": "Thorsten Ball",
-      "prequel": "Writing An Interpreter In Go"
-    };
+let name = "Monkey";
+let age = 1;
+let inspirations = ["Scheme", "Lisp", "JavaScript", "Clojure"];
+let book = {
+  "title": "Writing A Compiler In Go",
+  "author": "Thorsten Ball",
+  "prequel": "Writing An Interpreter In Go"
+};
 
-    let printBookName = fn(book) {
-        let title = book["title"];
-        let author = book["author"];
-        puts(author + " - " + title);
-    };
+let printBookName = fn(book) {
+  let title = book["title"];
+  let author = book["author"];
+  puts(author + " - " + title);
+};
 
-    printBookName(book);
-    </code></pre>
+printBookName(book);
+  </code></pre>
 
   <h2>7. Comments</h2>
   <pre><code>
-      // This is a single-line comment
+// This is a single-line comment
 
-      /*
-      This is a
-      multi-line comment
-      */
-    </code></pre>
+/*
+  This is a
+  multi-line comment
+*/
+  </code></pre>
 
   <h2>8. Error Handling</h2>
   <pre><code>
-      fn divide(a, b) {
-          if (b == 0) {
-              return "Error: Division by zero!";
-          }
-              return a / b;
-      }
-    </code></pre>
+fn divide(a, b) {
+  if (b == 0) {
+    return "Error: Division by zero!";
+  }
+  return a / b;
+}
+  </code></pre>
+
+  <h2>9. Higher-Order Functions</h2>
+  <h3>Example 1: makeGreeter</h3>
+  <pre><code>
+let makeGreeter = fn(greeting) { 
+  fn(name) {
+    greeting + " " + name + "!";
+  }
+};
+
+let hello = makeGreeter("Hello");
+
+hello("Zero");
+  </code></pre>
+
+  <h3>Example 2: map function</h3>
+  <pre><code>
+let map = fn(arr, f) {
+  let iter = fn(arr, accumulated) {
+    if (len(arr) == 0) {
+      accumulated;
+    } else {
+      iter(rest(arr), push(accumulated, f(first(arr))));
+    }
+  };
+
+  iter(arr, []);
+};
+
+let a = [1, 2, 3, 4, 5];
+let double = fn(x) { x * 2 };
+
+// Returns [2, 4, 6, 8, 10]
+map(a, double);
+  </code></pre>
+
+  <h2>10. Recursive Functions</h2>
+  <pre><code>
+let fibonacci = fn(x) {
+  if (x == 0) {
+    0;
+  } else {
+    if (x == 1) {
+      return 1;
+    } else {
+      fibonacci(x - 1) + fibonacci(x - 2);
+    }
+  }
+};
+
+let map = fn(arr, f) {
+  let iter = fn(arr, accumulated) {
+    if (len(arr) == 0) {
+      accumulated;
+    } else {
+      iter(rest(arr), push(accumulated, f(first(arr))));
+    }
+  };
+
+  iter(arr, []);
+};
+
+let numbers = [1, 1 + 1, 4 - 1, 2 * 2, 2 + 3, 12 / 2];
+map(numbers, fibonacci);
+  </code></pre>
 </div>
 {{end}}
