@@ -12,10 +12,18 @@ document
 			return;
 		}
 
-		const url =
-			processType === "flex"
-				? "http://localhost:5173/api/flex"
-				: "http://localhost:5173/api/lexer";
+		let url;
+		if (processType === "flex") {
+			url = "http://localhost:5173/api/flex";
+		} else if (processType === "lexer") {
+			url = "http://localhost:5173/api/lexer";
+		} else if (processType === "pratt") {
+			url = "http://localhost:5173/api/pratt";
+		} else {
+			document.getElementById("outputText").value =
+				"Error: Invalid Process Type";
+			return;
+		}
 
 		const response = await fetch(url, {
 			method: "POST",
