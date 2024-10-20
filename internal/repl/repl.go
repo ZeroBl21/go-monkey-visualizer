@@ -1,7 +1,9 @@
 package repl
 
 import (
+	"github.com/ZeroBl21/go-monkey-visualizer/internal/ast"
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/lexer"
+	"github.com/ZeroBl21/go-monkey-visualizer/internal/parser"
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/token"
 )
 
@@ -33,6 +35,25 @@ func (r *REPL) ParseTokens(line string) []token.Token {
 	}
 
 	return tokens
+}
+
+type ParseResult struct {
+	Program *ast.Program `json:"program"`
+	Errors  []string     `json:"errors"`
+}
+
+func (r *REPL) ParseAST(line string) *ParseResult {
+	l := lexer.New(line)
+	p := parser.New(l)
+
+	program := p.ParseProgram()
+
+	result := &ParseResult{
+		Program: program,
+		Errors:  p.Errors(),
+	}
+
+	return result
 }
 
 func applyColor(color, text string) string {
