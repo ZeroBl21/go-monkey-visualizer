@@ -5,9 +5,13 @@
   <form id="inputForm" class="input">
     <div class="controls">
       <select id="processType" name="lexer">
-        <option value="monkey">Monkey Lexer</option>
-        <option value="flex">Flex Lexer</option>
-        <option value="pratt">Pratt Parser</option>
+        <optgroup label="Lexers">
+          <option value="monkey">Monkey Lexer</option>
+          <option value="flex">Flex Lexer</option>
+        </optgroup>
+        <optgroup label="Parsers">
+          <option value="pratt">Pratt Parser</option>
+        </optgroup>
       </select>
       <a href="/tutorial">Tutorial!</a>
       <button type="submit">Lexer</button>
