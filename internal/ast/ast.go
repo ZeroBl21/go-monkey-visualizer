@@ -2,6 +2,7 @@ package ast
 
 import (
 	"bytes"
+	"encoding/json"
 	"strings"
 
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/token"
@@ -181,9 +182,28 @@ func (l *ArrayLiteral) String() string {
 	return out.String()
 }
 
+type HashPairs map[Expression]Expression
+
+func (hp HashPairs) MarshalJSON() ([]byte, error) {
+	type Pair struct {
+		Key   string
+		Value Expression
+	}
+	var pairs []Pair
+
+	for key, value := range hp {
+		pairs = append(pairs, Pair{
+			Key:   key.String(),
+			Value: value,
+		})
+	}
+
+	return json.Marshal(pairs)
+}
+
 type HashLiteral struct {
 	Token token.Token // The '{' token
-	Pairs map[Expression]Expression
+	Pairs HashPairs
 }
 
 func (l *HashLiteral) expressionNode()      {}
