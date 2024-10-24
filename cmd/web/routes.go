@@ -23,6 +23,8 @@ func (app *application) routes() http.Handler {
 
 	mux.HandleFunc("POST /api/pratt", app.parserPratt)
 
+	mux.HandleFunc("POST /api/evaluator", app.evaluateMonkey)
+
 	return mux
 }
 
@@ -125,6 +127,41 @@ func (app *application) parserPratt(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err := app.writeJSON(w, http.StatusOK, envelope{"result": result.Program}, nil)
+	if err != nil {
+		app.serverErrorResponse(w, r, err)
+	}
+}
+
+func (app *application) evaluateMonkey(w http.ResponseWriter, r *http.Request) {
+	var input struct {
+		Input string `json:"input"`
+	}
+
+	if err := app.readJSON(w, r, &input); err != nil {
+		app.badRequestResponse(w, r, err)
+		return
+	}
+
+	v := newValidator()
+
+	if v.Check(input.Input != "", "input", "must be provided"); !v.Valid() {
+		app.failedValidationResponse(w, r, v.Errors)
+		return
+	}
+
+	replInstance := repl.New()
+	result := replInstance.EvaluateLine(input.Input)
+
+	if len(result.Errors) != 0 {
+		err := app.writeJSON(w, http.StatusOK, envelope{"result": result.Errors}, nil)
+		if err != nil {
+			app.serverErrorResponse(w, r, err)
+		}
+
+		return
+	}
+
+	err := app.writeJSON(w, http.StatusOK, envelope{"result": result.Evaluate}, nil)
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
 	}
