@@ -2,7 +2,7 @@ package repl
 
 /*
 #cgo CFLAGS: -I../flex/
-#cgo LDFLAGS: -L../flex/ -lfl
+#cgo LDFLAGS: -L/usr/local/lib -L/usr/lib -lfl
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -78,7 +78,12 @@ func ParseTokensFlex(input string) ([]token.Token, error) {
 	// Invocar yylex repetidamente
 	for {
 		tokenType := int(C.yylex())
-		if tokenType == 0 { // EOF
+		if tokenType == 0 || tokenType == 2 { // EOF
+			log.Printf("EOF >> Type: %s; TokenTypeNumber: %d; TokenType: %s;",
+				tokenMap[tokenType],
+				tokenType,
+				token.TokenType(tokenMap[tokenType]),
+			)
 			break
 		}
 

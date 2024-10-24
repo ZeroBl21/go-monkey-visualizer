@@ -969,14 +969,16 @@ YY_RULE_SETUP
 #line 90 "lexer.l"
 { return ILLEGAL; }
 	YY_BREAK
+case YY_STATE_EOF(INITIAL):
+#line 91 "lexer.l"
+{ return EOF_TOK; }
+	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 92 "lexer.l"
+#line 93 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 977 "lex.yy.c"
-case YY_STATE_EOF(INITIAL):
-	yyterminate();
+#line 981 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1979,7 +1981,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 92 "lexer.l"
+#line 93 "lexer.l"
 
 
 void yyerror(const char *s) {

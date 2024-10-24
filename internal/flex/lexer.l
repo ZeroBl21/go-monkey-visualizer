@@ -88,6 +88,7 @@ OP      [\+\-\*/=<>!]
 "//".*        { /* skip comments */ }
 
 .             { return ILLEGAL; }
+<<EOF>>       { return EOF_TOK; }
 
 %%
 
