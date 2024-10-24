@@ -19,6 +19,8 @@ document
 			url = "http://localhost:5173/api/lexer";
 		} else if (processType === "pratt") {
 			url = "http://localhost:5173/api/pratt";
+		} else if (processType === "evaluator") {
+			url = "http://localhost:5173/api/evaluator";
 		} else {
 			url = "http://localhost:5173/api/lexer";
 		}
