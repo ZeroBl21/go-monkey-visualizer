@@ -73,6 +73,10 @@ func (r *REPL) EvaluateLine(line string) *ParseResult {
 		Errors:  p.Errors(),
 	}
 
+	if len(result.Errors) != 0 {
+		return result
+	}
+
 	evaluated := evaluator.Eval(program, r.env)
 	if evaluated != nil {
 		result.Evaluate = evaluated.Inspect()
