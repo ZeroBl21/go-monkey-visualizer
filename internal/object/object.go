@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/ast"
+	"github.com/ZeroBl21/go-monkey-visualizer/internal/code"
 )
 
 type ObjectType string
@@ -143,6 +144,17 @@ type Builtin struct {
 
 func (o *Builtin) Type() ObjectType { return BUILTIN_OBJ }
 func (o *Builtin) Inspect() string  { return "builtin function" }
+
+type CompiledFunction struct {
+	Instructions  code.Instructions
+	NumLocals     int
+	NumParameters int
+}
+
+func (o *CompiledFunction) Type() ObjectType { return COMPILED_FUNCTION_OBJ }
+func (o *CompiledFunction) Inspect() string {
+	return fmt.Sprintf("CompiledFunction[%p]", o)
+}
 
 type Array struct {
 	Elements []Object
