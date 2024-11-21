@@ -19,7 +19,6 @@ func (app *application) routes() http.Handler {
 
 	// Api Routes
 	mux.HandleFunc("POST /api/lexer", app.lexerMonkey)
-	mux.HandleFunc("POST /api/flex", app.lexerFlex)
 
 	mux.HandleFunc("POST /api/pratt", app.parserPratt)
 
@@ -63,35 +62,6 @@ func (app *application) lexerMonkey(w http.ResponseWriter, r *http.Request) {
 	result := replInstance.ParseTokens(input.Input)
 
 	err := app.writeJSON(w, http.StatusOK, envelope{"result": result}, nil)
-	if err != nil {
-		app.serverErrorResponse(w, r, err)
-	}
-}
-
-func (app *application) lexerFlex(w http.ResponseWriter, r *http.Request) {
-	var input struct {
-		Input string `json:"input"`
-	}
-
-	if err := app.readJSON(w, r, &input); err != nil {
-		app.badRequestResponse(w, r, err)
-		return
-	}
-
-	v := newValidator()
-
-	if v.Check(input.Input != "", "input", "must be provided"); !v.Valid() {
-		app.failedValidationResponse(w, r, v.Errors)
-		return
-	}
-
-	result, err := repl.ParseTokensFlex(input.Input)
-	if err != nil {
-		app.serverErrorResponse(w, r, err)
-		return
-	}
-
-	err = app.writeJSON(w, http.StatusOK, envelope{"result": result}, nil)
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
 	}

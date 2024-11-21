@@ -13,9 +13,7 @@ document
 		}
 
 		let url;
-		if (processType === "flex") {
-			url = "http://localhost:5173/api/flex";
-		} else if (processType === "monkey") {
+		if (processType === "monkey") {
 			url = "http://localhost:5173/api/lexer";
 		} else if (processType === "pratt") {
 			url = "http://localhost:5173/api/pratt";
