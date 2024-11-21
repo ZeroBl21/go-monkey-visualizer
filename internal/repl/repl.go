@@ -1,7 +1,10 @@
 package repl
 
 import (
+	"fmt"
+
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/ast"
+	"github.com/ZeroBl21/go-monkey-visualizer/internal/compiler"
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/evaluator"
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/lexer"
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/object"
@@ -83,6 +86,20 @@ func (r *REPL) EvaluateLine(line string) *ParseResult {
 	}
 
 	return result
+}
+
+func (r *REPL) CompileToBytecode(line string) (*compiler.Bytecode, error) {
+	l := lexer.New(line)
+	p := parser.New(l)
+
+	program := p.ParseProgram()
+
+	comp := compiler.New()
+	if err := comp.Compile(program); err != nil {
+		return nil, fmt.Errorf("compiler error: %s", err)
+	}
+
+	return comp.Bytecode(), nil
 }
 
 func applyColor(color, text string) string {

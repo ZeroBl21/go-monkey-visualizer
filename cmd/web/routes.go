@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/repl"
@@ -23,6 +24,8 @@ func (app *application) routes() http.Handler {
 	mux.HandleFunc("POST /api/pratt", app.parserPratt)
 
 	mux.HandleFunc("POST /api/evaluator", app.evaluateMonkey)
+
+	mux.HandleFunc("POST /api/compiler", app.compilerMonkey)
 
 	return mux
 }
@@ -132,6 +135,41 @@ func (app *application) evaluateMonkey(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err := app.writeJSON(w, http.StatusOK, envelope{"result": result.Evaluate}, nil)
+	if err != nil {
+		app.serverErrorResponse(w, r, err)
+	}
+}
+
+func (app *application) compilerMonkey(w http.ResponseWriter, r *http.Request) {
+	var input struct {
+		Input string `json:"input"`
+	}
+
+	if err := app.readJSON(w, r, &input); err != nil {
+		app.badRequestResponse(w, r, err)
+		return
+	}
+
+	v := newValidator()
+
+	if v.Check(input.Input != "", "input", "must be provided"); !v.Valid() {
+		app.failedValidationResponse(w, r, v.Errors)
+		return
+	}
+
+	replInstance := repl.New()
+	result, err := replInstance.CompileToBytecode(input.Input)
+	if err != nil {
+		fmt.Println(err)
+		err := app.writeJSON(w, http.StatusOK, envelope{"result": err.Error()}, nil)
+		if err != nil {
+			app.serverErrorResponse(w, r, err)
+		}
+
+		return
+	}
+
+	err = app.writeJSON(w, http.StatusOK, envelope{"result": result}, nil)
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
 	}
