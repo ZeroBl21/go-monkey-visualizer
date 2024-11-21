@@ -93,6 +93,9 @@ func (r *REPL) CompileToBytecode(line string) (*compiler.Bytecode, error) {
 	p := parser.New(l)
 
 	program := p.ParseProgram()
+	if len(p.Errors()) != 0 {
+		return nil, fmt.Errorf("parser errors: %v", p.Errors())
+	}
 
 	comp := compiler.New()
 	if err := comp.Compile(program); err != nil {
