@@ -1,3 +1,10 @@
+const urls = {
+	monkey: "http://localhost:5173/api/lexer",
+	pratt: "http://localhost:5173/api/pratt",
+	evaluator: "http://localhost:5173/api/evaluator",
+	bytecode: "http://localhost:5173/api/bytecode",
+};
+
 document
 	.getElementById("inputForm")
 	.addEventListener("submit", async function (event) {
@@ -12,18 +19,7 @@ document
 			return;
 		}
 
-		let url;
-		if (processType === "monkey") {
-			url = "http://localhost:5173/api/lexer";
-		} else if (processType === "pratt") {
-			url = "http://localhost:5173/api/pratt";
-		} else if (processType === "evaluator") {
-			url = "http://localhost:5173/api/evaluator";
-		} else if (processType === "bytecode") {
-			url = "http://localhost:5173/api/compiler";
-		} else {
-			url = "http://localhost:5173/api/lexer";
-		}
+		const url = urls[processType] || "http://localhost:5173/api/lexer";
 
 		const response = await fetch(url, {
 			method: "POST",

@@ -25,7 +25,7 @@ func (app *application) routes() http.Handler {
 
 	mux.HandleFunc("POST /api/evaluator", app.evaluateMonkey)
 
-	mux.HandleFunc("POST /api/compiler", app.compilerMonkey)
+	mux.HandleFunc("POST /api/bytecode", app.bytecodeMonkey)
 
 	return mux
 }
@@ -140,7 +140,7 @@ func (app *application) evaluateMonkey(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (app *application) compilerMonkey(w http.ResponseWriter, r *http.Request) {
+func (app *application) bytecodeMonkey(w http.ResponseWriter, r *http.Request) {
 	var input struct {
 		Input string `json:"input"`
 	}
