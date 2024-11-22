@@ -3,6 +3,7 @@ const urls = {
 	pratt: "http://localhost:5173/api/pratt",
 	evaluator: "http://localhost:5173/api/evaluator",
 	bytecode: "http://localhost:5173/api/bytecode",
+	compiler: "http://localhost:5173/api/compiler",
 };
 
 document
