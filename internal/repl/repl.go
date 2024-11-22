@@ -106,7 +106,7 @@ func (r *REPL) CompileToBytecode(line string) (*compiler.Bytecode, error) {
 	return comp.Bytecode(), nil
 }
 
-func (r *REPL) CompileToProgram(line string) (object.Object, error) {
+func (r *REPL) CompileToVM(line string) (object.Object, error) {
 	l := lexer.New(line)
 	p := parser.New(l)
 

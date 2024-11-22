@@ -195,7 +195,7 @@ func (app *application) compilerMonkey(w http.ResponseWriter, r *http.Request) {
 	}
 
 	replInstance := repl.New()
-	result, err := replInstance.CompileToProgram(input.Input)
+	result, err := replInstance.CompileToVM(input.Input)
 	if err != nil {
 		fmt.Println(err)
 		err := app.writeJSON(w, http.StatusOK, envelope{"result": err.Error()}, nil)
