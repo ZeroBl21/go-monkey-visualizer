@@ -10,6 +10,7 @@ import (
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/object"
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/parser"
 	"github.com/ZeroBl21/go-monkey-visualizer/internal/token"
+	"github.com/ZeroBl21/go-monkey-visualizer/internal/vm"
 )
 
 const (
@@ -103,6 +104,28 @@ func (r *REPL) CompileToBytecode(line string) (*compiler.Bytecode, error) {
 	}
 
 	return comp.Bytecode(), nil
+}
+
+func (r *REPL) CompileToProgram(line string) (object.Object, error) {
+	l := lexer.New(line)
+	p := parser.New(l)
+
+	program := p.ParseProgram()
+	if len(p.Errors()) != 0 {
+		return nil, fmt.Errorf("parser errors: %v", p.Errors())
+	}
+
+	comp := compiler.New()
+	if err := comp.Compile(program); err != nil {
+		return nil, fmt.Errorf("compiler error: %s", err)
+	}
+
+	machine := vm.New(comp.Bytecode())
+	if err := machine.Run(); err != nil {
+		return nil, fmt.Errorf("vm error: %s", err)
+	}
+
+	return machine.LastPoppedStackElem(), nil
 }
 
 func applyColor(color, text string) string {
