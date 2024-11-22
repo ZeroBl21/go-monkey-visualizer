@@ -27,6 +27,8 @@ func (app *application) routes() http.Handler {
 
 	mux.HandleFunc("POST /api/bytecode", app.bytecodeMonkey)
 
+	mux.HandleFunc("POST /api/compiler", app.compilerMonkey)
+
 	return mux
 }
 
@@ -159,6 +161,41 @@ func (app *application) bytecodeMonkey(w http.ResponseWriter, r *http.Request) {
 
 	replInstance := repl.New()
 	result, err := replInstance.CompileToBytecode(input.Input)
+	if err != nil {
+		fmt.Println(err)
+		err := app.writeJSON(w, http.StatusOK, envelope{"result": err.Error()}, nil)
+		if err != nil {
+			app.serverErrorResponse(w, r, err)
+		}
+
+		return
+	}
+
+	err = app.writeJSON(w, http.StatusOK, envelope{"result": result}, nil)
+	if err != nil {
+		app.serverErrorResponse(w, r, err)
+	}
+}
+
+func (app *application) compilerMonkey(w http.ResponseWriter, r *http.Request) {
+	var input struct {
+		Input string `json:"input"`
+	}
+
+	if err := app.readJSON(w, r, &input); err != nil {
+		app.badRequestResponse(w, r, err)
+		return
+	}
+
+	v := newValidator()
+
+	if v.Check(input.Input != "", "input", "must be provided"); !v.Valid() {
+		app.failedValidationResponse(w, r, v.Errors)
+		return
+	}
+
+	replInstance := repl.New()
+	result, err := replInstance.CompileToProgram(input.Input)
 	if err != nil {
 		fmt.Println(err)
 		err := app.writeJSON(w, http.StatusOK, envelope{"result": err.Error()}, nil)
