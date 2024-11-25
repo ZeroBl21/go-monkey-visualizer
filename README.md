@@ -45,9 +45,6 @@ https://github.com/user-attachments/assets/03383dc5-1a38-4050-ad5b-02819bb053d7
 2. **Build for Windows**:
    First, configure the environment for cross-compilation:
    ```bash
-   export CC=x86_64-w64-mingw32-gcc
-   export CXX=x86_64-w64-mingw32-g++
-   export CGO_ENABLED=1
    export GOOS=windows
    export GOARCH=amd64
    ```
